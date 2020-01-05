@@ -13,23 +13,22 @@ struct Area {};
 class DataSource
 {
 public:
-    DataSource(
-            std::function<void(Point const&)> newPointCallback,
-            std::function<void(Line const&)> newLineCallback,
-            std::function<void(Area const&)> newAreaCallback);
+    static void SetPointCallback(std::function<void(Point const&)> pointCallback);
+    static void SetLineCallback(std::function<void(Line const&)> lineCallback);
+    static void SetAreaCallback(std::function<void(Area const&)> areaCallback);
 
-    ~DataSource();
+    static void Destroy();
 
 private:
-    std::function<void(Point const&)> _newPointCallback;
-    std::function<void(Line const&)> _newLineCallback;
-    std::function<void(Area const&)> _newAreaCallback;
+    static std::function<void(Point const&)> _pointCallback;
+    static std::function<void(Line const&)> _lineCallback;
+    static std::function<void(Area const&)> _areaCallback;
 
-    std::thread _pointCreator;
-    std::thread _lineCreator;
-    std::thread _areaCreator;
+    static std::thread _pointCreator;
+    static std::thread _lineCreator;
+    static std::thread _areaCreator;
 
-    std::atomic_bool _running = true;
+    static std::atomic_bool _isRunning;
 };
 
 #endif
