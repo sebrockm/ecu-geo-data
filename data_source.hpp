@@ -11,14 +11,15 @@ struct Area {};
 class DataSource
 {
 public:
-    static void SetNewPointCallback(std::function<void(Point const&)> callback);
-    static void SetNewLineCallback(std::function<void(Line const&)> callback);
-    static void SetNewAreaCallback(std::function<void(Area const&)> callback);
+    DataSource(
+            std::function<void(Point const&)> newPointCallback,
+            std::function<void(Line const&)> newLineCallback,
+            std::function<void(Area const&)> newAreaCallback);
 
 private:
-    static std::function<void(Point const&)> s_newPointCallback;
-    static std::function<void(Line const&)> s_newLineCallback;
-    static std::function<void(Area const&)> s_newAreaCallback;
+    std::function<void(Point const&)> _newPointCallback;
+    std::function<void(Line const&)> _newLineCallback;
+    std::function<void(Area const&)> _newAreaCallback;
 };
 
 #endif

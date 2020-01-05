@@ -1,24 +1,15 @@
 #include "data_source.hpp"
 
-std::function<void(Point const&)> DataSource::s_newPointCallback = nullptr;
-std::function<void(Line const&)> DataSource::s_newLineCallback = nullptr;
-std::function<void(Area const&)> DataSource::s_newAreaCallback = nullptr;
-
-void DataSource::SetNewPointCallback(std::function<void(Point const&)> callback)
-{
-    s_newPointCallback = callback;
-}
-
-void DataSource::SetNewLineCallback(std::function<void(Line const&)> callback)
-{
-    s_newLineCallback = callback;
-}
-
-void DataSource::SetNewAreaCallback(std::function<void(Area const&)> callback)
-{
-    s_newAreaCallback = callback;
-}
+DataSource::DataSource(
+        std::function<void(Point const&)> newPointCallback,
+        std::function<void(Line const&)> newLineCallback,
+        std::function<void(Area const&)> newAreaCallback)
+    : _newPointCallback(newPointCallback),
+    _newLineCallback(newLineCallback),
+    _newAreaCallback(newAreaCallback)
+    { }
 
 int main()
 {
+    DataSource dataSource(nullptr, nullptr, nullptr);
 }
