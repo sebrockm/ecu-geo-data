@@ -2,6 +2,7 @@
 #define DATA_SOURCE_HPP
 
 #include <functional>
+#include <thread>
 
 struct Point {};
 struct Line {};
@@ -20,6 +21,10 @@ private:
     std::function<void(Point const&)> _newPointCallback;
     std::function<void(Line const&)> _newLineCallback;
     std::function<void(Area const&)> _newAreaCallback;
+
+    std::thread _pointCreator;
+    std::thread _lineCreator;
+    std::thread _areaCreator;
 };
 
 #endif
