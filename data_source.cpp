@@ -15,7 +15,7 @@ DataSource::DataSource(
 {
     _pointCreator = std::thread([=]
     {
-        while (true)
+        while (_running)
         {
             std::this_thread::sleep_for(1ms);
             if (_newPointCallback)
@@ -24,7 +24,7 @@ DataSource::DataSource(
     });
     _lineCreator = std::thread([=]
     {
-        while (true)
+        while (_running)
         {
             std::this_thread::sleep_for(1ms);
             if (_newLineCallback)
@@ -33,13 +33,21 @@ DataSource::DataSource(
     });
     _areaCreator = std::thread([=]
     {
-        while (true)
+        while (_running)
         {
             std::this_thread::sleep_for(1ms);
             if (_newAreaCallback)
                 _newAreaCallback(Area{});
         }
     });
+}
+
+DataSource::~DataSource()
+{
+    _running = false;
+    _pointCreator.join();
+    _lineCreator.join();
+    _areaCreator.join();
 }
 
 int main()
