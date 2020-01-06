@@ -63,14 +63,3 @@ void DataSource::Destroy()
     _lineCreator.join();
     _areaCreator.join();
 }
-
-int main()
-{
-    DataSource::SetPointCallback([] (Point const&) { std::cout << "new point" << std::endl; });
-    DataSource::SetLineCallback([] (Line const&) { std::cout << "new line" << std::endl; });
-    DataSource::SetAreaCallback([] (Area const&) { std::cout << "new area" << std::endl; });
-
-    std::this_thread::sleep_for(10s);
-
-    DataSource::Destroy();
-}
